@@ -1,0 +1,104 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 2rem;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 2rem;
+}
+
+.header-element {
+    display: inline-block;
+}
+
+.horizontal-line {
+    border-bottom: 1px solid black;
+    width: 100%;
+}
+
+.main {
+    padding: 2rem;
+} 
+
+.shape-selector {
+    width: 27.5rem; 
+    padding: 1.1rem 1.8rem 0.8rem 1.8rem;
+    border: 2px solid black;
+    border-radius: 12.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.colour-selector {
+    width: 73rem;
+    padding: 1.1rem 1.8rem 0.8rem 1.8rem;
+    border: 2px solid black;
+    border-radius: 12.5rem;
+    margin-bottom: 3rem;
+}
+
+.shape {
+    display: inline-block;
+    background-color: gray;
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+.shape:not(:last-child) {
+    margin-right: 1.5rem;
+}
+
+#circle {
+    border-radius: 1.5rem;
+}
+
+#triangle {
+    position: relative;
+    background-color: transparent;
+    width: 0rem;
+    border-bottom:solid 2.5rem gray;
+    border-right:solid 1.5rem transparent;
+    border-left:solid 1.5rem transparent;
+}
+
+#rectangle-hr {
+    width: 5rem;
+}
+
+#rectangle-vr {
+    width: 2rem;
+}
+
+#line {
+    width: 4px;
+}
+
+.colour-block {
+    display: inline-block;
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+.colour-block:not(:last-child) {
+    margin-right: 1rem;
+}
+
+.canvas {
+    margin-top: 3rem;
+    width: 100%;
+    height: calc(100vh - 27rem);
+    background-color: gray;
+}
