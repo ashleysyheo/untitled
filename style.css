@@ -6,6 +6,7 @@
 
 html {
     font-size: 62.5%;
+    overflow: hidden;
 }
 
 body {
@@ -33,6 +34,15 @@ body {
 .main {
     padding: 2rem;
 } 
+
+.container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.shape-counter::selection {
+    background-color: none;
+}
 
 .shape-selector {
     width: 27.5rem; 
@@ -96,9 +106,34 @@ body {
     margin-right: 1rem;
 }
 
-.canvas {
-    margin-top: 3rem;
-    width: 100%;
+#defaultCanvas0 {
     height: calc(100vh - 27rem);
-    background-color: gray;
+    width: calc(100vw - 4rem);
+}
+
+@media only screen and (max-width: 37.5em) {
+    .container {
+        display: block;
+    }
+
+    .colour-selector {
+        width: 33rem; 
+        padding: 1.1rem 1.8rem 0.8rem 1.8rem;
+        border: 2px solid black;
+        border-radius: 3rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .colour-block {
+        width: 2rem;
+        height: 2rem;
+    }
+
+    .colour-block:nth-child(10) {
+        margin-right: 0;
+    }
+
+    #defaultCanvas0 {
+        margin-top: 1.5rem;
+    }
 }

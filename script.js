@@ -17,20 +17,6 @@ let time = () => {
     let minute = `${date.getMinutes()}`.padStart(2, '0');
     let second = `${date.getSeconds()}`.padStart(2, '0');
     let displayTime = hour + ":" + minute + ":" + second;
-
-    // console.log(hour);
-
-    // if (hour > 17 || hour < 6) {
-    //     console.log('yes')
-    //     mode = false;
-    // } 
-    // if (hour > 5 || hour < 18) {
-    //     mode = true;
-    //     console.log('no')
-    // }
-
-   // s c// onsole.log(mode);
-
     currTime.innerHTML = displayTime; 
     let timeChange = setTimeout(time, 1000);
 }
@@ -44,60 +30,24 @@ window.onresize = () => {
     screenSize.innerHTML = `(${window.innerWidth} x ${window.innerHeight})`;
 };
 
-
-// let currHour = () => {
-//     let hour = newDate().getHours();
-//     let hourChange = setTimeout(currHour, 1000 * 60 * 60);
-//     return hour
-// }
-
 let hr = (new Date()).getHours();
-console.log(hr);
 let mode; 
-console.log(mode);
 
 if ( hr > 6 && hr < 18) {
     mode = true;
-    console.log(hr);
 } else {
     mode = false;
-    console.log(hr);
 }
-
-// if (6 <= hr <= 17) {
-//     mode = true;
-// } else {
-//     mode = false;
-// }
-
-
-// if () {
-//     mode = true;
-//     console.log('yes')
-// } else  {
-//     mode = false;
-// }
-
-// console.log(mode);
-
-// var nextDate = new Date();
-// if (nextDate.getMinutes() === 0) { // You can check for seconds here too
-//     callEveryHour()
-// } else {
-//     nextDate.setHours(nextDate.getHours() + 1);
-//     nextDate.setMinutes(0);
-//     nextDate.setSeconds(0);// I wouldn't do milliseconds too ;)
-
-//     var difference = nextDate - new Date();
-//     setTimeout(callEveryHour, difference);
-// }
-
 
 const main = document.querySelector('.main');
 
+const container = document.createElement('div');
+container.className = 'container';
+main.appendChild(container);
+
 const optionsContainer = document.createElement('div');
 optionsContainer.className = 'options-container';
-main.appendChild(optionsContainer);
+container.appendChild(optionsContainer);
 
 const shapeSelector = document.createElement('div');
 shapeSelector.className = 'shape-selector';
@@ -210,31 +160,63 @@ const convertRemToPixels = (rem) => {
 let canvasWidthMargin = convertRemToPixels(4);
 let canvasHeightMargin = convertRemToPixels(27);
 
+const counter = document.createElement('div');
+counter.className = 'counter';
+container.appendChild(counter);
+
+const shapeCounter = document.createElement('div');
+counter.appendChild(shapeCounter);
+shapeCounter.className ='shape-counter';
+let count = 0;
+shapeCounter.innerHTML = `number of shapes: ${count}`;
+
+
 function setup() {
-    createCanvas(windowWidth - canvasWidthMargin, windowHeight - canvasHeightMargin);
+    if (windowWidth <= 600) {
+        createCanvas(windowWidth - canvasWidthMargin, windowHeight - convertRemToPixels(30));
+    } else {
+        createCanvas(windowWidth - canvasWidthMargin, windowHeight - canvasHeightMargin);
+    }
     setInterval(randomColour, 500);
+    if (mode) {
+        background(255, 255, 255);
+    } else {
+        background(0, 0, 0);
+    }
+}
+
+function save() {
+    saveCanvas('myCanvas', 'png');
 }
 
 function draw() {
-    
+
 }
 
 function windowResized() {
-    resizeCanvas(windowWidth - canvasWidthMargin, windowHeight - canvasHeightMargin, true);
+    if (windowWidth <= 600) {
+        resizeCanvas(windowWidth - canvasWidthMargin, windowHeight - convertRemToPixels(30));
+    } else {
+        resizeCanvas(windowWidth - canvasWidthMargin, windowHeight - canvasHeightMargin);
+    }
 }
 
 let c; 
 
 function mouseDragged() {
+    let shapeWidth = (windowWidth - canvasWidthMargin) / 30
+    let shapeHeight = (windowHeight - canvasHeightMargin) / 30
     c = brushColor;
     noFill();
     stroke(color(c));
+    count += 1;
+    shapeCounter.innerHTML = `number of shapes: ${count}`;
 
     if (round == true) {
-        ellipse(mouseX, mouseY, 50, 50);
+        ellipse(mouseX, mouseY, shapeWidth, shapeWidth);
     }
     if (square == true) {
-        rect(mouseX, mouseY, 35, 35);
+        rect(mouseX, mouseY, shapeWidth, shapeWidth);
     }
     if (tri == true) {
         // random point 
@@ -242,13 +224,19 @@ function mouseDragged() {
         //triangle( mouseX, mouseY, mouseY, mouseX, mouseY, mouseX);
     }
     if (rectangleVr == true) {
-        rect(mouseX, mouseY, 10, 60);
+        rect(mouseX, mouseY, shapeHeight, shapeWidth);
     }
     if (rectangleHr == true) {
-        rect(mouseX, mouseY, 60, 10);
+        rect(mouseX, mouseY, shapeWidth, shapeHeight);
     }
     if (line == true) {
         triangle(mouseX, mouseY, 550, 200, 550, 200); 
+    }
+
+    if (count > 10000) {
+        save();
+        clear();
+        count = 0;
     }
 }
 
@@ -260,10 +248,3 @@ const randomColour = () => {
         brushColor[idx] -= 10
     } 
 }
-
-
-
-// const darkColour = ['#F48FFB', '#F3CEFE', '#FDCAE1', '#FFB4C9', '#FD6E6E', 
-//                     '#FB9F72', '#F1C5AE', '#FCDEA0', '#FBDA1C', '#F0F712', 
-//                     '#DDFE04', '#BDFE9D', '#98E95E', '#70FAB1', '#06E2EA', 
-//                     '#7BE3FD', '#A8E9FD', '#E4FDFE', '#F0EBFC', '#FFF9F3'];
