@@ -33,7 +33,7 @@ window.onresize = () => {
 let hr = (new Date()).getHours();
 let mode; 
 
-if ( hr > 6 && hr < 18) {
+if ( hr > 6 && hr < 23) {
     mode = true;
 } else {
     mode = false;
@@ -137,7 +137,7 @@ for (let i=0; i<20; i++) {
 }
 
 if (mode) {
-    body.style.backgroundColor = 'whitesmoke';
+    body.style.backgroundColor = 'white';
     body.style.color = 'black';
     document.querySelector('.horizontal-line').style.borderColor = 'black';
     document.querySelector('.shape-selector').style.borderColor = 'black';
