@@ -33,7 +33,7 @@ window.onresize = () => {
 let hr = (new Date()).getHours();
 let mode; 
 
-if ( hr > 6 && hr < 23) {
+if ( hr > 6 && hr < 18) {
     mode = true;
 } else {
     mode = false;
