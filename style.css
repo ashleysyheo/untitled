@@ -15,6 +15,10 @@ body {
     font-size: 2rem;
 }
 
+::selection {
+    background-color: none;
+}
+
 .header {
     display: flex;
     justify-content: space-between;
@@ -40,8 +44,10 @@ body {
     justify-content: space-between;
 }
 
-.shape-counter::selection {
-    background-color: none;
+
+.current-color {
+    text-align: right;
+    margin-top: 1.2rem;
 }
 
 .shape-selector {

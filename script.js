@@ -170,6 +170,13 @@ shapeCounter.className ='shape-counter';
 let count = 0;
 shapeCounter.innerHTML = `number of shapes: ${count}`;
 
+const currColor = document.createElement('div');
+counter.appendChild(currColor); 
+currColor.className = 'current-color';
+let currColorRGB = mode ? lightColour[0] : darkColour[0]
+currColor.innerHTML = `rgb: ${currColorRGB.map(el => el)}`
+
+
 
 function setup() {
     if (windowWidth <= 600) {
@@ -177,11 +184,19 @@ function setup() {
     } else {
         createCanvas(windowWidth - canvasWidthMargin, windowHeight - canvasHeightMargin);
     }
+
     setInterval(randomColour, 500);
+
     if (mode) {
         background(255, 255, 255);
     } else {
         background(0, 0, 0);
+    }
+
+    let randomNumber = random(1, 11);
+
+    for (i = 1; i < randomNumber; i++) {
+        randomCircles();
     }
 }
 
@@ -191,14 +206,6 @@ function save() {
 
 function draw() {
 
-}
-
-function windowResized() {
-    if (windowWidth <= 600) {
-        resizeCanvas(windowWidth - canvasWidthMargin, windowHeight - convertRemToPixels(30));
-    } else {
-        resizeCanvas(windowWidth - canvasWidthMargin, windowHeight - canvasHeightMargin);
-    }
 }
 
 let c; 
@@ -211,6 +218,7 @@ function mouseDragged() {
     stroke(color(c));
     count += 1;
     shapeCounter.innerHTML = `number of shapes: ${count}`;
+    currColor.innerHTML = `rgb: ${c.map(el => el)}`
 
     if (round == true) {
         ellipse(mouseX, mouseY, shapeWidth, shapeWidth);
@@ -233,18 +241,59 @@ function mouseDragged() {
         triangle(mouseX, mouseY, 550, 200, 550, 200); 
     }
 
-    if (count > 10000) {
+    if (count > 5000) {
         save();
         clear();
         count = 0;
+
+        let randomNumber = random(1, 11);
+
+        for (i = 1; i < randomNumber; i++) {
+            randomCircles();
+        }
+    }
+}
+
+function randomCircles() {
+    let length = random(10, 70);
+    let x = random(width);
+    let y = random(height);
+    noStroke();
+    if (mode) {
+        fill(0, 0, 0);
+    } else {
+        fill(255, 255, 255);
+    }
+    ellipse(x, y, length, length);
+}
+
+function windowResized() {
+    if (windowWidth <= 600) {
+        resizeCanvas(windowWidth - canvasWidthMargin, windowHeight - convertRemToPixels(30));
+    } else {
+        resizeCanvas(windowWidth - canvasWidthMargin, windowHeight - canvasHeightMargin);
+    }
+
+    let randomNumber = random(1, 11);
+
+    for (i = 1; i < randomNumber; i++) {
+        randomCircles();
     }
 }
 
 const randomColour = () => {
     let idx = Math.floor(Math.random() * 3);
     if (mode) {
-        brushColor[idx] += 10
+        if (brushColor[idx] + 10 > 255) {
+            brushColor[idx] = 255;
+        } else {
+            brushColor[idx] += 10;
+        }
     } else {
-        brushColor[idx] -= 10
+        if (brushColor[idx] - 10 < 0 ) {
+            brushColor[idx] = 0;
+        } else {
+            brushColor[idx] -= 10;
+        }
     } 
 }
