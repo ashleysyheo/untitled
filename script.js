@@ -65,15 +65,15 @@ const selectedShape = e => {
     let id = e.target.id;
     let shapes = Array.from(document.querySelectorAll('.shape'));
 
-    mode ? (id === 'triangle' ? e.target.style.borderBottomColor = 'black' : e.target.style.backgroundColor = 'black') :
-    (id === 'triangle' ? e.target.style.borderBottomColor = 'white' : e.target.style.backgroundColor = 'white');
+    mode ? (id === 'triangle' ? e.target.style.borderBottomColor = 'black' : e.target.classList.remove('shape-inactive')) :
+    (id === 'triangle' ? e.target.style.borderBottomColor = 'white' : e.target.classList.remove('shape-inactive'));
 
     let disabledShapes = shapes.filter(elem => elem.id !== id); 
     disabledShapes.forEach(el => {
         if (el.id == 'triangle') {
             el.style.borderBottomColor = 'gray';
         } else {
-            el.style.backgroundColor = 'gray'
+            el.classList.add('shape-inactive');
         }
     });
 
@@ -87,11 +87,15 @@ const selectedShape = e => {
 
 for (let i=0; i<shapes.length; i++) {
     const shape = document.createElement('div');
-    let colorMode = mode ? 'shape--white-mode' : 'shape--black-mode';
     shape.classList.add('shape');
+    mode ? shape.classList.add('shape-light') : shape.classList.add('shape-dark');
     shape.id = shapes[i];
     if (shapes[i] == 'circle') {
-        mode ? shape.style.backgroundColor = 'black' : shape.style.backgroundColor = 'white';
+        mode ? shape.classList.add('shape-active-light') : shape.classList.add('shape-active-dark');
+    } else {
+        if (shapes[i] !== 'triangle') {
+            shape.classList.add('shape-inactive')
+        }
     }
     shape.addEventListener('click', selectedShape);
     shapeSelector.appendChild(shape);
@@ -180,7 +184,7 @@ currColor.innerHTML = `rgb: ${currColorRGB.map(el => el)}`
 
 function setup() {
     if (windowWidth <= 600) {
-        createCanvas(windowWidth - canvasWidthMargin, windowHeight - convertRemToPixels(30));
+        createCanvas(windowWidth - canvasWidthMargin, windowHeight - convertRemToPixels(33.5));
     } else {
         createCanvas(windowWidth - canvasWidthMargin, windowHeight - canvasHeightMargin);
     }
@@ -244,6 +248,7 @@ function mouseDragged() {
     if (count > 5000) {
         save();
         clear();
+        
         count = 0;
 
         let randomNumber = random(1, 11);
@@ -269,7 +274,7 @@ function randomCircles() {
 
 function windowResized() {
     if (windowWidth <= 600) {
-        resizeCanvas(windowWidth - canvasWidthMargin, windowHeight - convertRemToPixels(30));
+        resizeCanvas(windowWidth - canvasWidthMargin, windowHeight - convertRemToPixels(33.5));
     } else {
         resizeCanvas(windowWidth - canvasWidthMargin, windowHeight - canvasHeightMargin);
     }

@@ -44,10 +44,13 @@ body {
     justify-content: space-between;
 }
 
-
 .current-color {
     text-align: right;
     margin-top: 1.2rem;
+}
+
+.current-color::selection {
+    background-color: none;
 }
 
 .shape-selector {
@@ -68,9 +71,29 @@ body {
 
 .shape {
     display: inline-block;
-    background-color: gray;
     width: 2.5rem;
     height: 2.5rem;
+}
+
+.shape-light {
+    background-color: black;
+}
+
+.shape-dark {
+    background-color: white;
+}
+
+.shape-active-light {
+    background-color: black;
+}
+
+.shape-active-dark {
+    background-color: white;
+}
+
+.shape-inactive {
+    background-color: transparent;
+    border: 2px solid gray;
 }
 
 .shape:not(:last-child) {
@@ -88,6 +111,18 @@ body {
     border-bottom:solid 2.5rem gray;
     border-right:solid 1.5rem transparent;
     border-left:solid 1.5rem transparent;
+}
+
+#triangle::after {
+    content: '';
+    position: absolute;
+    top: 2.5px;
+    left: -1.2rem;
+    background-color: transparent;
+    width: 0rem;
+    border-bottom:solid 2rem black;
+    border-right:solid 1.2rem transparent;
+    border-left:solid 1.2rem transparent;
 }
 
 #rectangle-hr {
@@ -112,11 +147,6 @@ body {
     margin-right: 1rem;
 }
 
-#defaultCanvas0 {
-    height: calc(100vh - 27rem);
-    width: calc(100vw - 4rem);
-}
-
 @media only screen and (max-width: 37.5em) {
     .container {
         display: block;
@@ -137,6 +167,11 @@ body {
 
     .colour-block:nth-child(10) {
         margin-right: 0;
+    }
+
+    .current-color {
+        text-align: left;
+        margin-top: 1.2rem;
     }
 
     #defaultCanvas0 {
