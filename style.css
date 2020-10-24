@@ -47,11 +47,9 @@ body {
 .current-color {
     text-align: right;
     margin-top: 1.2rem;
+    user-select: none;
 }
 
-.current-color::selection {
-    background-color: none;
-}
 
 .shape-selector {
     width: 27.5rem; 
@@ -121,6 +119,48 @@ body {
     background-color: transparent;
     width: 0rem;
     border-bottom:solid 2rem black;
+    border-right:solid 1.2rem transparent;
+    border-left:solid 1.2rem transparent;
+}
+
+.triangle-light {
+    position: relative;
+    background-color: transparent;
+    width: 0rem;
+    border-bottom:solid 2.5rem black !important;
+    border-right:solid 1.5rem transparent;
+    border-left:solid 1.5rem transparent;
+}
+
+.triangle-light::after {
+    content: '';
+    position: absolute;
+    top: 2.5px;
+    left: -1.2rem;
+    background-color: transparent;
+    width: 0rem;
+    border-bottom:solid 2rem black !important;
+    border-right:solid 1.2rem transparent;
+    border-left:solid 1.2rem transparent;
+}
+
+.triangle-dark {
+    position: relative;
+    background-color: transparent;
+    width: 0rem;
+    border-bottom:solid 2.5rem white !important;
+    border-right:solid 1.5rem transparent;
+    border-left:solid 1.5rem transparent;
+}
+
+.triangle-dark::after {
+    content: '';
+    position: absolute;
+    top: 2.5px;
+    left: -1.2rem;
+    background-color: transparent;
+    width: 0rem;
+    border-bottom:solid 2rem white !important;
     border-right:solid 1.2rem transparent;
     border-left:solid 1.2rem transparent;
 }

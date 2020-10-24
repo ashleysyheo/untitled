@@ -65,13 +65,13 @@ const selectedShape = e => {
     let id = e.target.id;
     let shapes = Array.from(document.querySelectorAll('.shape'));
 
-    mode ? (id === 'triangle' ? e.target.style.borderBottomColor = 'black' : e.target.classList.remove('shape-inactive')) :
-    (id === 'triangle' ? e.target.style.borderBottomColor = 'white' : e.target.classList.remove('shape-inactive'));
+    mode ? (id === 'triangle' ? e.target.classList.add('triangle-light') : e.target.classList.remove('shape-inactive')) :
+    (id === 'triangle' ? e.target.classList.add('triangle-dark') : e.target.classList.remove('shape-inactive'));
 
     let disabledShapes = shapes.filter(elem => elem.id !== id); 
     disabledShapes.forEach(el => {
         if (el.id == 'triangle') {
-            el.style.borderBottomColor = 'gray';
+            mode ? el.classList.remove('triangle-light') : el.classList.remove('triangle-dark')
         } else {
             el.classList.add('shape-inactive');
         }
@@ -89,7 +89,12 @@ for (let i=0; i<shapes.length; i++) {
     const shape = document.createElement('div');
     shape.classList.add('shape');
     mode ? shape.classList.add('shape-light') : shape.classList.add('shape-dark');
-    shape.id = shapes[i];
+    // if (shapes[i] === 'triangle') {
+    //     mode ? shape.id = 'triangle-light' : 'triangle-dark';
+    // } else {
+        shape.id = shapes[i];
+    //}
+
     if (shapes[i] == 'circle') {
         mode ? shape.classList.add('shape-active-light') : shape.classList.add('shape-active-dark');
     } else {
@@ -171,7 +176,7 @@ container.appendChild(counter);
 const shapeCounter = document.createElement('div');
 counter.appendChild(shapeCounter);
 shapeCounter.className ='shape-counter';
-let count = 0;
+let count = 5000;
 shapeCounter.innerHTML = `number of shapes: ${count}`;
 
 const currColor = document.createElement('div');
@@ -220,7 +225,7 @@ function mouseDragged() {
     c = brushColor;
     noFill();
     stroke(color(c));
-    count += 1;
+    count -= 1;
     shapeCounter.innerHTML = `number of shapes: ${count}`;
     currColor.innerHTML = `rgb: ${c.map(el => el)}`
 
@@ -245,11 +250,11 @@ function mouseDragged() {
         triangle(mouseX, mouseY, 550, 200, 550, 200); 
     }
 
-    if (count > 5000) {
+    if (count < 0) {
         save();
         clear();
         
-        count = 0;
+        count = 5000;
 
         let randomNumber = random(1, 11);
 
@@ -260,7 +265,7 @@ function mouseDragged() {
 }
 
 function randomCircles() {
-    let length = random(10, 70);
+    let length = random(10, 20);
     let x = random(width);
     let y = random(height);
     noStroke();
@@ -278,6 +283,8 @@ function windowResized() {
     } else {
         resizeCanvas(windowWidth - canvasWidthMargin, windowHeight - canvasHeightMargin);
     }
+
+    
 
     let randomNumber = random(1, 11);
 
