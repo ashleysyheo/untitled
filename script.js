@@ -89,11 +89,7 @@ for (let i=0; i<shapes.length; i++) {
     const shape = document.createElement('div');
     shape.classList.add('shape');
     mode ? shape.classList.add('shape-light') : shape.classList.add('shape-dark');
-    // if (shapes[i] === 'triangle') {
-    //     mode ? shape.id = 'triangle-light' : 'triangle-dark';
-    // } else {
-        shape.id = shapes[i];
-    //}
+    shape.id = shapes[i];
 
     if (shapes[i] == 'circle') {
         mode ? shape.classList.add('shape-active-light') : shape.classList.add('shape-active-dark');
@@ -122,10 +118,34 @@ const colourSelector = document.createElement('div');
 colourSelector.className = 'colour-selector';
 optionsContainer.appendChild(colourSelector);
 
+const counter = document.createElement('div');
+counter.className = 'counter';
+container.appendChild(counter);
+
+const shapeCounter = document.createElement('div');
+counter.appendChild(shapeCounter);
+shapeCounter.className ='shape-counter';
+let count = 5000;
+shapeCounter.innerHTML = `number of shapes: ${count}`;
+
+const currColor = document.createElement('div');
+counter.appendChild(currColor); 
+currColor.className = 'current-color';
+let currColorRGB = mode ? lightColour[0] : darkColour[0]
+currColor.innerHTML = 'rgb: ';
+
+const currColorValue = document.createElement('span');
+currColor.appendChild(currColorValue);
+currColorValue.innerHTML = `${currColorRGB.map(el => el)}`;
+currColorValue.style.color = `rgb(${currColorRGB.map(el => el)})`
+
 let brushColor; 
 
 const selectedColor = (e) => {
     brushColor = mode ? [...lightColour[parseInt((e.target.id).slice(3,))]] : [...darkColour[parseInt((e.target.id).slice(3,))]]; 
+    console.log(brushColor);
+    currColorValue.innerHTML = `${brushColor.map(el => el)}`;
+    currColorValue.style.color = `rgb(${brushColor.map(el => el)})`
 }
 
 for (let i=0; i<20; i++) {
@@ -169,24 +189,6 @@ const convertRemToPixels = (rem) => {
 let canvasWidthMargin = convertRemToPixels(4);
 let canvasHeightMargin = convertRemToPixels(27);
 
-const counter = document.createElement('div');
-counter.className = 'counter';
-container.appendChild(counter);
-
-const shapeCounter = document.createElement('div');
-counter.appendChild(shapeCounter);
-shapeCounter.className ='shape-counter';
-let count = 5000;
-shapeCounter.innerHTML = `number of shapes: ${count}`;
-
-const currColor = document.createElement('div');
-counter.appendChild(currColor); 
-currColor.className = 'current-color';
-let currColorRGB = mode ? lightColour[0] : darkColour[0]
-currColor.innerHTML = `rgb: ${currColorRGB.map(el => el)}`
-
-
-
 function setup() {
     if (windowWidth <= 600) {
         createCanvas(windowWidth - canvasWidthMargin, windowHeight - convertRemToPixels(33.5));
@@ -195,12 +197,6 @@ function setup() {
     }
 
     setInterval(randomColour, 500);
-
-    if (mode) {
-        background(255, 255, 255);
-    } else {
-        background(0, 0, 0);
-    }
 
     let randomNumber = random(1, 11);
 
@@ -227,7 +223,9 @@ function mouseDragged() {
     stroke(color(c));
     count -= 1;
     shapeCounter.innerHTML = `number of shapes: ${count}`;
-    currColor.innerHTML = `rgb: ${c.map(el => el)}`
+
+    currColorValue.innerHTML = `${c.map(el => el)}`;
+    currColorValue.style.color = `rgb(${c.map(el => el)})`
 
     if (round == true) {
         ellipse(mouseX, mouseY, shapeWidth, shapeWidth);
@@ -238,7 +236,6 @@ function mouseDragged() {
     if (tri == true) {
         // random point 
         triangle(mouseX, mouseY, 240, mouseX, mouseY, 240);
-        //triangle( mouseX, mouseY, mouseY, mouseX, mouseY, mouseX);
     }
     if (rectangleVr == true) {
         rect(mouseX, mouseY, shapeHeight, shapeWidth);
