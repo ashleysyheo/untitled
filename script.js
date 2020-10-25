@@ -96,6 +96,8 @@ for (let i=0; i<shapes.length; i++) {
     } else {
         if (shapes[i] !== 'triangle') {
             shape.classList.add('shape-inactive')
+        } else {
+            mode ? shape.classList.add('triangle-light-inactive') : shape.classList.add('triangle-dark-inactive')
         }
     }
     shape.addEventListener('click', selectedShape);
@@ -187,7 +189,7 @@ const convertRemToPixels = (rem) => {
 }
 
 let canvasWidthMargin = convertRemToPixels(4);
-let canvasHeightMargin = convertRemToPixels(27);
+let canvasHeightMargin = convertRemToPixels(24);
 
 function setup() {
     if (windowWidth <= 600) {

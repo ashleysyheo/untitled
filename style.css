@@ -116,7 +116,7 @@ body {
     border-left:solid 1.5rem transparent;
 }
 
-#triangle::after {
+/* #triangle::after {
     content: '';
     position: absolute;
     top: 2.5px;
@@ -124,6 +124,27 @@ body {
     background-color: transparent;
     width: 0rem;
     border-bottom:solid 2rem black;
+    border-right:solid 1.2rem transparent;
+    border-left:solid 1.2rem transparent;
+} */
+
+.triangle-light-inactive {
+    position: relative;
+    background-color: transparent;
+    width: 0rem;
+    border-bottom:solid 2.5rem gray !important;
+    border-right:solid 1.5rem transparent;
+    border-left:solid 1.5rem transparent;
+}
+
+.triangle-light-inactive::after {
+    content: '';
+    position: absolute;
+    top: 2.5px;
+    left: -1.2rem;
+    background-color: transparent;
+    width: 0rem;
+    border-bottom:solid 2rem white !important;
     border-right:solid 1.2rem transparent;
     border-left:solid 1.2rem transparent;
 }
@@ -148,6 +169,28 @@ body {
     border-right:solid 1.2rem transparent;
     border-left:solid 1.2rem transparent;
 }
+
+.triangle-dark-inactive {
+    position: relative;
+    background-color: transparent;
+    width: 0rem;
+    border-bottom:solid 2.5rem gray !important;
+    border-right:solid 1.5rem transparent;
+    border-left:solid 1.5rem transparent;
+}
+
+.triangle-dark-inactive::after {
+    content: '';
+    position: absolute;
+    top: 2.5px;
+    left: -1.2rem;
+    background-color: transparent;
+    width: 0rem;
+    border-bottom:solid 2rem black !important;
+    border-right:solid 1.2rem transparent;
+    border-left:solid 1.2rem transparent;
+}
+
 
 .triangle-dark {
     position: relative;
